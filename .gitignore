@@ -1,0 +1,4 @@
+# package directories
+.serverless
+.env
+serverlessEnv.js
