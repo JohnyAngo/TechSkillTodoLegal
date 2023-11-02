@@ -1,0 +1,61 @@
+service: Exercise1
+
+frameworkVersion: "3"
+
+plugins:
+  - serverless-python-requirements
+
+provider:
+  name: aws
+  runtime: python3.9
+  environment:
+    MONGO_DB_USER: "${file(./serverlessEnv.js):database.MONGO_DB_USER}"
+    MONGO_DB_PASS: "${file(./serverlessEnv.js):database.MONGO_DB_PASS}"
+    MONGO_DB_NAME: "${file(./serverlessEnv.js):database.MONGO_DB_NAME}"
+    MONGO_DB_URL: "${file(./serverlessEnv.js):database.MONGO_DB_URL}"
+    MONGO_COLLECTION_NAME: "${file(./serverlessEnv.js):database.MONGO_COLLECTION_NAME}"
+  iam:
+    role:
+      managedPolicies:
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+
+functions:
+  create:
+    handler: item/create.create
+    events:
+      - http:
+          path: item
+          method: post
+          cors: true
+
+  list:
+    handler: item/list.list
+    events:
+      - http:
+          path: item
+          method: get
+          cors: true
+
+  get:
+    handler: item/get.get
+    events:
+      - http:
+          path: item/{id}
+          method: get
+          cors: true
+
+  getRate: 
+    handler: item/getFilter.get
+    events:
+      - http:
+          path: item/rate
+          method: post
+          cors: true
+
+  delete:
+    handler: item/delete.delete
+    events:
+      - http:
+          path: item/{id}
+          method: delete
+          cors: true
