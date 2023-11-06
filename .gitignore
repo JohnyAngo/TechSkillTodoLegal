@@ -2,3 +2,4 @@
 .serverless
 .env
 serverlessEnv.js
+node_modules

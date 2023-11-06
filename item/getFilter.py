@@ -50,6 +50,6 @@ def get(event, context):
     # Crear una respuesta y devolverla
     response = {
         "statusCode": 200,
-        "body": json.dumps(item)
+        "body": json.dumps(exchange_rate)
     }
     return response
